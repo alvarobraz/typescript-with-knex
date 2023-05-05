@@ -7,8 +7,9 @@ declare module 'knex/types/tables' {
   export interface Tables {
     transactions: {
       id: string
-      title: string
-      amount: number
+      description: string
+      price: number
+      type: string
       created_at: string
       session_id?: string
     }

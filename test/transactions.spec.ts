@@ -21,9 +21,10 @@ describe('Transactions routes', () => {
     await request(app.server)
       .post('/transactions')
       .send({
-        title: 'New transaction',
-        amount: 5000,
-        type: 'credit',
+        description: 'New transaction',
+        price: 5000,
+        type: 'income',
+        category: 'salário',
       })
       .expect(201)
   })
@@ -32,9 +33,10 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        title: 'New transaction',
-        amount: 5000,
-        type: 'credit',
+        description: 'New transaction',
+        price: 5000,
+        type: 'income',
+        category: 'aluguel',
       })
 
     const cookies = createTransactionResponse.get('Set-Cookie')
@@ -46,8 +48,8 @@ describe('Transactions routes', () => {
 
     expect(listTransactionsResponse.body.transactions).toEqual([
       expect.objectContaining({
-        title: 'New transaction',
-        amount: 5000,
+        description: 'New transaction',
+        price: 5000,
       }),
     ])
   })
@@ -56,9 +58,10 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        title: 'New transaction',
-        amount: 5000,
-        type: 'credit',
+        description: 'New transaction',
+        price: 5000,
+        type: 'income',
+        category: 'salário',
       })
 
     const cookies = createTransactionResponse.get('Set-Cookie')
@@ -77,8 +80,8 @@ describe('Transactions routes', () => {
 
     expect(getTransactionResponse.body.transaction).toEqual(
       expect.objectContaining({
-        title: 'New transaction',
-        amount: 5000,
+        description: 'New transaction',
+        price: 5000,
       }),
     )
   })
@@ -87,9 +90,10 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        title: 'Credit transaction',
-        amount: 5000,
-        type: 'credit',
+        description: 'Income transaction',
+        price: 5000,
+        type: 'income',
+        category: 'salário',
       })
 
     const cookies = createTransactionResponse.get('Set-Cookie')
@@ -98,9 +102,10 @@ describe('Transactions routes', () => {
       .post('/transactions')
       .set('Cookie', cookies)
       .send({
-        title: 'Debit transaction',
-        amount: 2000,
-        type: 'debit',
+        description: 'Outcome transaction',
+        price: 2000,
+        type: 'outcome',
+        category: 'aluguel',
       })
 
     const summaryResponse = await request(app.server)
@@ -109,7 +114,7 @@ describe('Transactions routes', () => {
       .expect(200)
 
     expect(summaryResponse.body.summary).toEqual({
-      amount: 3000,
+      price: 3000,
     })
   })
 })
