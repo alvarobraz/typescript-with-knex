@@ -21,8 +21,8 @@ describe('Transactions routes', () => {
     await request(app.server)
       .post('/transactions')
       .send({
-        description: 'New transaction',
-        price: 5000,
+        title: 'New transaction',
+        amount: 5000,
         type: 'income',
         category: 'salário',
       })
@@ -33,8 +33,8 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        description: 'New transaction',
-        price: 5000,
+        title: 'New transaction',
+        amount: 5000,
         type: 'income',
         category: 'aluguel',
       })
@@ -48,8 +48,8 @@ describe('Transactions routes', () => {
 
     expect(listTransactionsResponse.body.transactions).toEqual([
       expect.objectContaining({
-        description: 'New transaction',
-        price: 5000,
+        title: 'New transaction',
+        amount: 5000,
       }),
     ])
   })
@@ -58,8 +58,8 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        description: 'New transaction',
-        price: 5000,
+        title: 'New transaction',
+        amount: 5000,
         type: 'income',
         category: 'salário',
       })
@@ -80,8 +80,8 @@ describe('Transactions routes', () => {
 
     expect(getTransactionResponse.body.transaction).toEqual(
       expect.objectContaining({
-        description: 'New transaction',
-        price: 5000,
+        title: 'New transaction',
+        amount: 5000,
       }),
     )
   })
@@ -90,8 +90,8 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await request(app.server)
       .post('/transactions')
       .send({
-        description: 'Income transaction',
-        price: 5000,
+        title: 'Income transaction',
+        amount: 5000,
         type: 'income',
         category: 'salário',
       })
@@ -102,8 +102,8 @@ describe('Transactions routes', () => {
       .post('/transactions')
       .set('Cookie', cookies)
       .send({
-        description: 'Outcome transaction',
-        price: 2000,
+        title: 'Outcome transaction',
+        amount: 2000,
         type: 'outcome',
         category: 'aluguel',
       })
@@ -114,7 +114,7 @@ describe('Transactions routes', () => {
       .expect(200)
 
     expect(summaryResponse.body.summary).toEqual({
-      price: 3000,
+      amount: 3000,
     })
   })
 })
